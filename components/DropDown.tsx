@@ -22,37 +22,14 @@ const DropDown: React.FC<Props> = ({ newGroups }) => {
   const [filterMeetingDate, setFilterMeetingDate] = useState<string>("");
   const [filterZipCode, setFilterZipCode] = useState<string>("");
 
-  const changeCampus = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    if (e.target.value === "All") {
-      setFilterCampus("");
-    } else {
-      setFilterCampus(e.target.value);
-    }
-  };
-
-  const changeDemographic = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    if (e.target.value === "All") {
-      setFilterDemographic("");
-    } else {
-      setFilterDemographic(e.target.value);
-    }
-  };
-
-  const changeGroupType = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    if (e.target.value === "All") {
-      setFilterGroupType("");
-    } else {
-      setFilterGroupType(e.target.value);
-    }
-  };
-
-  const changeMeetingDate = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    if (e.target.value === "All") {
-      setFilterMeetingDate("");
-    } else {
-      setFilterMeetingDate(e.target.value);
-    }
-  };
+  const changeFilter =
+    (setFilter: Function) => (e: React.ChangeEvent<HTMLSelectElement>) => {
+      if (e.target.value === "All") {
+        setFilter("");
+      } else {
+        setFilter(e.target.value);
+      }
+    };
 
   const changeZipCode = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value === "All") {
@@ -99,12 +76,12 @@ const DropDown: React.FC<Props> = ({ newGroups }) => {
     <div className="md:flex md:gap-10 lg:gap-48 2xl:gap-80">
       <DropDownData
         filterCampus={filterCampus}
-        changeCampus={changeCampus}
-        changeDemographic={changeDemographic}
+        changeCampus={changeFilter(setFilterCampus)}
+        changeDemographic={changeFilter(setFilterDemographic)}
         filterDemographic={filterDemographic}
         filterGroupType={filterGroupType}
-        changeGroupType={changeGroupType}
-        changeMeetingDate={changeMeetingDate}
+        changeGroupType={changeFilter(setFilterGroupType)}
+        changeMeetingDate={changeFilter(setFilterMeetingDate)}
         filterMeetingDate={filterMeetingDate}
         filterZipCode={filterZipCode}
         changeZipCode={changeZipCode}
